@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 /**
- *  @version 1.3.0
+ *  @version 1.1.0
  *  @license MIT
  *  @author Unknown
  *  @author Kyto ( https://github.com/Kytoh )
@@ -11,7 +11,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Secure Payment Form</title>
-<link rel="stylesheet" href="css/bootstrap-min.css">
+<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/Payments.css">
 <link rel="stylesheet" href="css/bootstrap-formhelpers-min.css" media="screen">
 <link rel="stylesheet" href="css/bootstrapValidator-min.css"/>
@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="css/bootstrap-side-notes.css" />
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="js/bootstrap-min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="js/bootstrap-formhelpers-min.js"></script>
 <script type="text/javascript" src="js/bootstrapValidator-min.js"></script>
 <script type="text/javascript">
@@ -431,3 +431,4 @@ if ($_POST) {
       </div>
     </div>
 </form>
+<a href="admin/" style="position:absolute;bottom:5px;left:5px">Control Panel</a>
