@@ -1,10 +1,20 @@
 <?php
 error_reporting(E_ALL);
-define('BASE_DIR', '/apps/StripePayments/admin') or die();
-define('API_DIR', BASE_DIR.'/api/apu.php');
+define('DEBUG_MODE', true) or die();
+define('ADMIN_DIR', dirname($_SERVER['REQUEST_URI'])) or die();
+define('API_DIR', ADMIN_DIR.'/api/apu.php');
 require_once '../vendor/autoload.php';
 include "lib/_autoload.php";
 include "../config/ky-config.php";
+
+// Verificamos si tiene sesión iniciadda. En caso contrario enviamos al login
+if (!$AuthClass->checkSession($cookies['Auth'])) {
+    $page = 'login';
+    $logged = false;
+}else{
+    $page = ((isset($_GET['page']))?$_GET['page']:'');
+    $logged = true;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,25 +28,25 @@ include "../config/ky-config.php";
     <script src="../vendor/jquery/cookie.jquery.min.js"></script>
 </head>
 <body>
+    <div class="wrapper">
     <?php
     //echo ($AuthClass->register('test@mail.com', '1234qwerty', '1234qwerty')) ? 'true' : 'false';
-    //echo $AuthClass->hash('1234');
-
-    $page = (isset($_GET['page']) ? $_GET['page'] : 'main');
-    // Verificamos si tiene sesión iniciadda. En caso contrario enviamos al login
-    if (!$AuthClass->checkSession($_COOKIE['KY_AuthID'])) {
-    $page = 'login';
-}
+    
+    include 'layouts/main.php';
+    include 'layouts/sidebar.php';
     switch ($page) {
-        case 'login':
-            require "pages/login.php";
+        case 'logout':
+            $AuthClass->logout($cookies['Auth']);
+            echo '<script>window.location = "index.php" </script>';
             break;
         default:
-            require "pages/index.php";
+            if(!@include_once"pages/".$page.".php"){
+                include_once "pages/index.php";
+            }
             break;
     }
     ?>
-
+    </div>
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
     <script src="../vendor/raphael/raphael.min.js"></script>

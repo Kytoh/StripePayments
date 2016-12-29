@@ -1,4 +1,5 @@
 <?php
+
 /* 
  * The MIT License
  *
@@ -22,13 +23,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-define('DB_HOST', 'localhost') or die;
-define('DB_DATABASE', 'ky_cobrador') or die;
-define('DB_USER', 'ky_admin') or die;
-define('DB_PASSWORD', '1234qwerty') or die;
-
-$dbp = new PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PASSWORD);
-
-$AuthConfig = new PHPAuth\Config($dbp);
-$AuthClass  = new PHPAuth\Auth($dbp, $AuthConfig);
+/**
+ * 
+ * @row KeyType 1 = Private, 2 = Public
+ * @row KeyMode 1 = Test, 2 = Live
+ */
+class keys {
+    
+    
+    /**
+     * Return all the active keys in an array with all the key_data table info
+     * @return array
+     */
+    function getEnabledKeys(){
+        $result = array();
+        $i = 0;
+        $query = 'SELECT * FROM '.DB_DATABASE.'.key_data k WHERE k.status = 1;'; 
+        Foreach ($dbp->query($query) as $row){
+            $result[$i] = $row;
+            $result++;
+        }
+        return $result;
+    }
+    
+    function setEnabledKeys($id, $active = 0){
+        try{
+            $result = array();
+            $i = 0;
+            $query = 'UPDATE '.DB_DATABASE.'.key_data k SET k.status = :status WHERE k.id = :id ;'; 
+            $dbp->prepare($query)->execute(array(':status'=>$active, ':id'=>$id));
+            return true;
+        }catch(Exception $e){
+            return false;
+        }
+    }
+}

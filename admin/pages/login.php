@@ -39,10 +39,10 @@
                     <div class="panel-body">
                         <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Email" id="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="Email" <?php if(DEBUG_MODE) echo 'value="test@mail.com"'?> id="email" type="email" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="*******" id="password" type="password" value="">
+                                    <input class="form-control" placeholder="*******" <?php if(DEBUG_MODE) echo 'value="1234"'?>  id="password" type="password" value="">
                                 </div>
                                 <div class="checkbox">
                                     <label>

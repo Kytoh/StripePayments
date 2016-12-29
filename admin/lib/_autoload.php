@@ -6,5 +6,5 @@
  */
 
 spl_autoload_register(function ($nombre_clase) {
-    include 'lib/'.$nombre_clase.'.php';
+    include 'lib/'.$nombre_clase.'.class.php';
 });

@@ -1,8 +1,9 @@
 <?php
+
 /* 
  * The MIT License
  *
- * Copyright 2016 Kyto
+ * Copyright 2016 Kyto.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,21 +23,5 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-$text_result = '';
-require_once '../../vendor/autoload.php';
-include "../lib/_autoload.php";
-include "../../config/ky-config.php";
 
-
-switch ($_POST['action']) {
-    case 'login':
-        if (isset($_POST['email']) && isset($_POST['password'])) {
-            $result = $AuthClass->login($_POST['email'], $_POST['password']);
-            $text_result = $result;
-        }
-        break;
-    default:
-        // I am a teampot
-}
-if ($text_result <> '') echo json_encode($text_result);
-else echo 'Error 418<br/>I\'m a teapot';
+$cookies = array('Auth' => (isset($_COOKIE['KY_AuthID']) ? $_COOKIE['KY_AuthID']:'') );

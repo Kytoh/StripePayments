@@ -27,7 +27,7 @@ require_once '../../vendor/autoload.php';
 include "../lib/_autoload.php";
 include "../../config/ky-config.php";
 
-
+(isset($_POST['action'])) or die();
 switch ($_POST['action']) {
     case 'login':
         if (isset($_POST['email']) && isset($_POST['password'])) {

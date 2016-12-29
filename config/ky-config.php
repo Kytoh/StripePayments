@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+include 'ky-cookies.php';
 
 define('DB_HOST', 'localhost') or die;
 define('DB_DATABASE', 'ky_cobrador') or die;
