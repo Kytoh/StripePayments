@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-define('BASE_DIR', '/apps/StripePayments/admin') or die();
+define('BASE_DIR', '/apps/payments/admin') or die();
 define('API_DIR', BASE_DIR.'/api/apu.php');
 require_once '../vendor/autoload.php';
 include "lib/_autoload.php";

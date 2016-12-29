@@ -1,0 +1,29 @@
+/*
+License MIT
+*/
+/*
+    Created on : 21-dic-2016, 10:43:19
+    Author     : kyto
+*/
+.container fieldset{
+        width:49%;
+        padding:1%;
+        float:left;
+    }
+
+    .full-width{
+        clear:both;
+        width:100%;
+    }
+
+    .col-centered {
+        display:inline-block;
+        float:none;
+        text-align:left;
+        margin-right:-4px;
+    }
+
+    .row-centered {
+        margin-left: 9px;
+        margin-right: 9px;
+    }
