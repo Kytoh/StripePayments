@@ -9,9 +9,8 @@ Features
 * Responsive design
 * Warning if JavaScript is disabled
 * Charge single amounts with Stripe
-
 * Admin panel with login
-* Registry is not allowed. Administrators must be declared manually.
+* Registering is not allowed. Administrators must be declared manually.
 
 ToDo
 ===============
@@ -25,5 +24,4 @@ Used Components
 * Bootstrap Validator (v0.4.4) - http://bootstrapvalidator.com/
 * PHPAuth (v1.1.1) - https://github.com/PHPAuth/PHPAuth
 
-_Original Author_
-Daniel Schröter
+_Original Author_ Daniel Schröter
