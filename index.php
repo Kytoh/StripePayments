@@ -431,4 +431,4 @@ if ($_POST) {
       </div>
     </div>
 </form>
-<a href="admin/" style="position:absolute;bottom:5px;left:5px">Control Panel</a>
+<a href="admin/index.php" style="position:absolute;bottom:5px;left:5px">Control Panel</a>

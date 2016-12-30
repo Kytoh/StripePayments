@@ -1,9 +1,8 @@
 <?php
-
 /* 
  * The MIT License
  *
- * Copyright 2016 Kyto.
+ * Copyright 2016 kyto.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,45 +22,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-/**
- * 
- * @row KeyType 1 = Private, 2 = Public
- * @row KeyMode 1 = Test, 2 = Live
- */
-class keys {
-    
-    
-    /**
-     * Return all the active keys in an array with all the key_data table info
-     * @return array
-     */
-    public static function getKeys()
-    {
-        $query  = 'SELECT * FROM '.DB_DATABASE.'.key_data k';
-        Foreach ($dbp->query($query) as $row){
-            $result[] = $row;
-        }
-        return $result;
-    }
-    
-    public static function setEnabledKeys($id, $active = 0)
-    {
-        try{
-            $query = 'UPDATE '.DB_DATABASE.'.key_data k SET k.status = :status WHERE k.id = :id ;';
-            $dbp->prepare($query)->execute(array(':status'=>$active, ':id'=>$id));
-            return true;
-        }catch(Exception $e){
-            return false;
-        }
-    }
 
-    public function setDisableKey($id)
-    {
-        self::setEnabledKeys($id, 0);
-    }
-
-    public function setEnableKey($id)
-    {
-        self::setEnabledKeys($id, 1);
-    }
-}
+?>
+empty
