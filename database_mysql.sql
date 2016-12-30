@@ -240,3 +240,33 @@ ALTER TABLE `users`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE `clientes` (
+   `id` int(11) NOT NULL AUTO_INCREMENT,
+   `nombre_nombre` varchar(45) DEFAULT NULL,
+   `nombre_apellido_1` varchar(45) DEFAULT NULL,
+   `nombre_apellido_2` varchar(45) DEFAULT NULL,
+   `idnum` varchar(45) NOT NULL,
+   `direccion_calle` varchar(45) DEFAULT NULL,
+   `direccion_numero` varchar(45) DEFAULT NULL,
+   `direccion_piso` varchar(45) DEFAULT NULL,
+   `direccion_puerta` varchar(45) DEFAULT NULL,
+   `direccion_pueblo` varchar(45) DEFAULT NULL,
+   `direccion_codpostal` varchar(45) DEFAULT NULL,
+   `direccion_provincia` varchar(45) DEFAULT NULL,
+   `direccion_pais` varchar(45) DEFAULT NULL,
+   PRIMARY KEY (`id`),
+   UNIQUE KEY `idnum_UNIQUE` (`idnum`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+CREATE TABLE `tokens` (
+   `id` int(11) NOT NULL AUTO_INCREMENT,
+   `client` int(11) NOT NULL,
+   `token` varchar(60) NOT NULL,
+   `date_used` datetime DEFAULT NULL,
+   `date_created` datetime DEFAULT NULL,
+   PRIMARY KEY (`id`),
+   UNIQUE KEY `token_UNIQUE` (`token`),
+   KEY `fk_token_client_idx` (`client`),
+   CONSTRAINT `fk_token_client` FOREIGN KEY (`client`) REFERENCES `clientes` (`id`) ON UPDATE CASCADE
+ ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tokens de los cobros'

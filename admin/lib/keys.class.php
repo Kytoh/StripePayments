@@ -37,31 +37,62 @@ class keys {
      */
     public static function getKeys()
     {
-        $query  = 'SELECT * FROM '.DB_DATABASE.'.key_data k';
-        Foreach ($dbp->query($query) as $row){
-            $result[] = $row;
+        try {
+            $query = 'SELECT * FROM '.DB_DATABASE.'.key_data k';
+            Foreach ($dbp->query($query) as $row){
+                $result[] = $row;
+            }
+            return true;
+        } catch (Exception $ex) {
+            return false;
         }
-        return $result;
     }
     
     public static function setEnabledKeys($id, $active = 0)
     {
         try{
             $query = 'UPDATE '.DB_DATABASE.'.key_data k SET k.status = :status WHERE k.id = :id ;';
-            $dbp->prepare($query)->execute(array(':status'=>$active, ':id'=>$id));
+            $dbp->prepare($query)->execute(array(':status' => $active, ':id' => $id));
             return true;
-        }catch(Exception $e){
+        } catch (Exception $ex) {
             return false;
         }
     }
 
-    public function setDisableKey($id)
+    public static function setDisableKey($id)
     {
         self::setEnabledKeys($id, 0);
     }
 
-    public function setEnableKey($id)
+    public static function setEnableKey($id)
     {
         self::setEnabledKeys($id, 1);
+    }
+
+    public static function createKey($dbp, $key_name, $key_type, $key_mode, $key_data, $key_status)
+    {
+        try {
+            $query = 'INSERT INTO '.DB_DATABASE.'.key_data (key_name, key_type, key_mode, key_data, status) VALUES(:name, :type, :mode, :data, :status)';
+            $dbp->prepare($query)->execute(array(
+                ':name' => $key_name,
+                ':type' => $key_type,
+                ':mode' => $key_mode,
+                ':data' => $key_data,
+                ':status' => $key_status));
+            return true;
+        } catch (Exception $ex) {
+            return $e->getMessage();
+        }
+    }
+
+    public static function deleteKey($dbp, $key_id)
+    {
+        try {
+            $query = 'DELETE FROM '.DB_DATABASE.'.key_data WHERE id = :id';
+            $dbp->prepare($query)->execute(array(':id' => $key_id));
+            return true;
+        } catch (Exception $ex) {
+            return $e->getMessage();
+        }
     }
 }

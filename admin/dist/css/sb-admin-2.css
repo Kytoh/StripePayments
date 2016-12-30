@@ -402,6 +402,7 @@ table.dataTable thead .sorting:after {
 .timeline-body > p + p {
   margin-top: 5px;
 }
+
 @media (max-width: 767px) {
   ul.timeline:before {
     left: 40px;
@@ -431,4 +432,11 @@ table.dataTable thead .sorting:after {
     border-right-width: 14px;
     border-left-width: 0;
   }
+}
+
+.key_disabled{
+    background:#ff9999 !important;
+}
+.key_enabled{
+    background:#ccffcc !important;
 }

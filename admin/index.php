@@ -22,7 +22,7 @@ if (!$AuthClass->checkSession($cookies['Auth'])) {
     <title>Payments Administrator</title>
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="dist/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/jquery/cookie.jquery.min.js"></script>

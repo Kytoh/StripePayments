@@ -24,16 +24,93 @@
  */
 ?>
 
+<script>
+    var lool;
+    $(function(){
+       $("#createKey").click(function(){
+           $.ajax({
+               url: "<?php echo API_DIR; ?>",
+               method: "POST",
+               data: {
+                 action:'createKey',
+                 key_name: $("#key_name").val(),
+                 key_type: $("#key_type").val(),
+                 key_mode: $("#key_mode").val(),
+                 key_data: $("#key_data").val(),
+                 key_status: $("#key_status").val()
+                }
+           }).done(function(data){
+               data = JSON.parse(data);
+               console.log(data);
+               if (data['error'] == false){
+                   location.reload();
+                }else{
+                    $("#panel-text").html(data['message']);
+                    $("#error_panel").show();
+                }
+           }).fail(function(){
+               $("#panel-text").html("La Cagaste!!");
+               $("#error_panel").show();
+           });
+       });
+       $(".deleteKey").click(function(){
+            $.ajax({
+                url: "<?php echo API_DIR; ?>",
+                method: "POST",
+                data: {
+                 action: 'deleteKey',
+                 key_id: $(this).data("id")
+                }
+            }).done(function(data){
+               data = JSON.parse(data);
+               console.log(data);
+               if (data['error'] == false){
+                   location.reload();
+                }else{
+                    $("#panel-text").html(data['message']);
+                    $("#error_panel").show();
+                }
+           }).fail(function(){
+               $("#panel-text").html("La Cagaste!!");
+               $("#error_panel").show();
+           });
+        });
+
+        $(".changeStatus").click(function(){
+            $.ajax({
+                url: "<?php echo API_DIR; ?>",
+                method: "POST",
+                data: {
+                 action: 'changeKeyStatus',
+                 key_id: $(this).data("id"),
+                 key_status: $(this).data("status")
+                }
+            }).done(function(data){
+               data = JSON.parse(data);
+               if (data['error'] == false){
+                   location.reload();
+                }else{
+                    $("#panel-text").html(data['message']);
+                    $("#error_panel").show();
+                }
+           }).fail(function(){
+               $("#panel-text").html("La Cagaste!!");
+               $("#error_panel").show();
+           });
+        });
+    });
+</script>
+
 <div id="page-wrapper">
     <div class="row">
         <br/>
         <div class="col-lg-12">
+            <div id="error_panel" class="panel panel-red" style="text-align: center;line-height: 2em;display:none;">
+                <span id="panel-text" class="panel-warning strong"></span>
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="fa fa-bar-chart-o fa-fw"></i> Stripe Keys
-                    <div class="pull-right">
-
-                    </div>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -50,24 +127,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                                 <?php
                                 $query = 'SELECT * FROM '.DB_DATABASE.'.key_data k';
                                 Foreach ($dbp->query($query) as $row) {
                                     ?>
-                                    <tr>
+                                <tr class="<?php echo (($row['status']) ? 'key_enabled' : 'key_disabled') ?>">
                                         <td><?php echo $row['key_name'] ?></td>
                                         <td><?php echo ($row['key_type'] == 1 ? 'Private' : 'Public') ?></td>
                                         <td><?php echo ($row['key_mode'] == 1 ? 'Test' : 'Live') ?></td>
-                                        <td><?php echo $row['key_data'] ?></td>
-                                            <td><?php echo $row['status'] ?></td>
-                                                <td><i class=""></i></td>
+                                            <td><?php echo $row['key_data'] ?></td>
+                                            <td><i data-id="<?php echo $row['id']; ?>" class="deleteKey glyphicon glyphicon-trash"></i>&nbsp;<i data-id="<?php echo $row['id']; ?>" data-status="<?php echo $row['status'] ?>" class="changeStatus glyphicon glyphicon-off"></i>
+                                                </td>
                                         </tr>
                                     <?php } ?>
                             </tbody>
                         </table>
                     </div>
-                    <!-- /.panel-body -->
                 </div>
             </div>
 
@@ -88,7 +163,7 @@
                                     <th><label for="key_type">Key Type</th>
                                     <th><label for="key_mode">Key Mode</th>
                                     <th><label for="key_data">Key Code</th>
-                                    <th><label for="status">Status</label></th>
+                                    <th><label for="key_status">Status</label></th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -98,7 +173,7 @@
                                     <td><select id="key_type"><option value="1">Private</option><option value="2">Public</option></select></td>
                                     <td><select id="key_mode"><option value="1">Private</option><option value="2">Public</option></select></td>
                                     <td><input type="text" id="key_data"></td>
-                                    <td><select id="status"><option value="1">Enabled</option><option value="0">Disabled</option></select></td>
+                                    <td><select id="key_status"><option value="1">Enabled</option><option value="0">Disabled</option></select></td>
                                     <td><button id="createKey" class="btn btn-success btn-block">Create Key</button></td>
                                 </tr>
                             </tbody>

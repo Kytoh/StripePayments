@@ -27,16 +27,13 @@ require_once '../../vendor/autoload.php';
 include "../lib/_autoload.php";
 include "../../config/ky-config.php";
 
+//filters to stop execution
 (isset($_POST['action'])) or die();
-switch ($_POST['action']) {
-    case 'login':
-        if (isset($_POST['email']) && isset($_POST['password'])) {
-            $result = $AuthClass->login($_POST['email'], $_POST['password']);
-            $text_result = $result;
-        }
-        break;
-    default:
-        // I am a teampot
+($AuthClass->checkSession($cookies['Auth'])) or $_POST['action'] == 'login' or die();
+
+if (@include 'ex/'.$_POST['action'].'.php') {
+    json_encode($text_result);
+    echo json_encode($text_result);
+} else {
+    echo 'Error 418<br/>I\'m a teapot';
 }
-if ($text_result <> '') echo json_encode($text_result);
-else echo 'Error 418<br/>I\'m a teapot';

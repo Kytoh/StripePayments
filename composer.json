@@ -1,5 +1,6 @@
 {
     "require": {
+        "stripe/stripe-php": "4.*",
         "phpauth/phpauth": "^1.1"
     }
 }
