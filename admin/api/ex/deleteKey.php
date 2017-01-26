@@ -24,7 +24,8 @@
      */
 
     if (isset($_POST['key_id'])) {
-        if ($result = Keys::deleteKey($_POST['key_id']) === true) {
+        $key = Keys::__constructID($dbo->db, $_POST['key_id']);
+        if ($result = $key->deleteKey() === true) {
             $text_result = array("error" => false);
         } else {
             $text_result = array("error" => true, "message" => "No se ha podido borrar la clave & ".$result);

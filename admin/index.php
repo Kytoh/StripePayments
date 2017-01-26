@@ -21,11 +21,11 @@
 <html>
     <head>
         <title>Payments Administrator</title>
-        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="dist/css/sb-admin-2.min.css" rel="stylesheet">
-        <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <script src="../vendor/jquery/jquery.min.js"></script>
-        <script src="../vendor/jquery/cookie.jquery.min.js"></script>
+        <link href="../vendor/components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <script src="../vendor/components/jquery/jquery.min.js"></script>
+        <script src="../vendor/components/jquery-cookie/jquery.cookie.js"></script>
     </head>
     <body>
         <div class="wrapper">
@@ -47,8 +47,7 @@
                 }
             ?>
         </div>
-        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-        <script src="../vendor/raphael/raphael.min.js"></script>
+        <script src="../vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
 <!--        <script src="dist/js/sb-admin-2.js"></script>-->
     </body>
 </html>

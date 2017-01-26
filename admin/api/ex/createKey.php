@@ -29,8 +29,10 @@
         isset($_POST['key_mode']) &&
         isset($_POST['key_data']) &&
         isset($_POST['key_status'])) {
-        if ($result = Keys::createKey($_POST['key_name'], $_POST['key_type'],
-                $_POST['key_mode'], $_POST['key_data'], $_POST['key_status']) === true
+
+        $key = new Keys($dbo->db, $_POST['key_type'], $_POST['key_mode'],
+            $_POST['key_name'], $_POST['key_data'], $_POST['key_status']);
+        if ($result = $key->createKey() === true
         ) {
             $text_result = array("error" => false);
         } else {

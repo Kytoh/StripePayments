@@ -26,36 +26,41 @@
     class keys
     {
         /**
+         * @var integer ID of the Selected Key
+         */
+        public $key_id = null;
+
+        /**
          * Manage the Key Type
          * 1 = Private, 2 = Public
          * @var integer
          */
-        public $key_type = 0;
+        public $key_type = null;
 
         /**
          * Manage the Key Mode
          * 1 = Test, 2 = Live
          * @var integer
          */
-        public $key_mode = 0;
+        public $key_mode = null;
 
         /**
          * Key name on the DB
          * @var string
          */
-        public $key_name = '';
+        public $key_name = null;
 
         /**
          * Key Data
          * @var string
          */
-        public $key_data = '';
+        public $key_data = null;
 
         /**
          * Status of the Current Key
          * @var integer
          */
-        public $key_status = 0;
+        public $key_status = null;
 
         /**
          * All keys will be inserted here
@@ -70,9 +75,18 @@
         public $db;
         public $error;
 
+        /**
+         *
+         * @param object $database
+         * @param type $keyType
+         * @param type $keyMode
+         * @param type $keyName
+         * @param type $keyData
+         * @param type $keyStatus
+         */
         public function __construct($database, $keyType = null, $keyMode = null,
                                     $keyName = null, $keyData = null,
-                                    $keyData = null, $keyStatus = null)
+                                    $keyStatus = null)
         {
             $this->db = $database;
             $this->key_type = $keyType;
@@ -80,6 +94,19 @@
             $this->key_name = $keyName;
             $this->key_data = $keyData;
             $this->key_status = $keyStatus;
+        }
+
+        /**
+         * Declare a Key ID
+         * @param object $database
+         * @param integer $key_id
+         * @overload
+         */
+        public static function __constructID($database, $key_id = null)
+        {
+            $obj = new Keys($database);
+            $obj->key_id = $key_id;
+            return $obj;
         }
 
         /**
@@ -91,7 +118,7 @@
             try {
                 $this->keys = array();
 
-                $query = 'SELECT * FROM '.DB_DATABASE.'.key_data k WHERE k.status = 1';
+                $query = 'SELECT * FROM '.DB_DATABASE.'.key_data k';
                 Foreach ($this->db->query($query) as $row) {
                     $this->keys[] = $row;
                 }
@@ -116,42 +143,72 @@
             }
         }
 
-        public function setEnabledKeys($id, $active = 0)
+        /**
+         *
+         * @return boolean
+         */
+        public function resetKeys()
         {
             try {
-                $query = 'UPDATE '.DB_DATABASE.'.key_data k SET k.status = :status WHERE k.id = :id ;';
-                $dbo->db->prepare($query)->execute(array(':status' => $active, ':id' => $id));
+                $query = 'UPDATE '.DB_DATABASE.'.key_data k SET k.status = 0 '
+                    .'WHERE k.key_type = :type;';
+                $this->db->prepare($query)
+                    ->execute(array(':type' => $this->key_type));
+            } catch (Exception $ex) {
+                $this->error .= 'resetKeys::'.$ex->getMessage();
+            }
+        }
+
+        public function setEnabledKeys()
+        {
+            try {
+                /* TODO: #11
+                 * if ($this->key_status == 1) {
+                  $query = 'SELECT k.key_type FROM key_data k WHERE k.id = :t_id';
+                  $result = $this->db->prepare($query)->execute(array(':t_id' => $this->key_id));
+                  //$row = $result->fetch();
+                  //$this->key_type = $row[0];
+                  //self::resetKeys();
+                  } */
+                $query = 'UPDATE '.DB_DATABASE.'.key_data k SET k.status = :status '
+                    .'WHERE k.id = :id;';
+                $this->db->prepare($query)
+                    ->execute(array(':status' => $this->key_status, ':id' => $this->key_id));
                 return true;
             } catch (Exception $ex) {
+                $this->error .= 'setEnabledKeys::'.$ex->getMessage();
+            }
+        }
+
+        public function createKey()
+        {
+            try {
+                if ($this->key_status == 1) {
+                    self::setEnabledKeys();
+                }
+                $query = 'INSERT INTO '.DB_DATABASE.'.key_data (key_name, key_type, key_mode, key_data, status) VALUES(:name, :type, :mode, :data, :status)';
+                $this->db->prepare($query)->execute(array(
+                    ':name' => $this->key_name,
+                    ':type' => $this->key_type,
+                    ':mode' => $this->key_mode,
+                    ':data' => $this->key_data,
+                    ':status' => $this->key_status));
+                return true;
+            } catch (Exception $ex) {
+                $this->error .= 'createKey::'.$ex->getMessage();
                 return false;
             }
         }
 
-        public static function createKey($key_name, $key_type, $key_mode,
-                                         $key_data, $key_status)
-        {
-            try {
-                $query = 'INSERT INTO '.DB_DATABASE.'.key_data (key_name, key_type, key_mode, key_data, status) VALUES(:name, :type, :mode, :data, :status)';
-                $dbo->db->prepare($query)->execute(array(
-                    ':name' => $key_name,
-                    ':type' => $key_type,
-                    ':mode' => $key_mode,
-                    ':data' => $key_data,
-                    ':status' => $key_status));
-                return true;
-            } catch (Exception $ex) {
-                return $e->getMessage();
-            }
-        }
-
-        public static function deleteKey($key_id)
+        public function deleteKey()
         {
             try {
                 $query = 'DELETE FROM '.DB_DATABASE.'.key_data WHERE id = :id';
-                $dbo->db->prepare($query)->execute(array(':id' => $key_id));
+                $this->db->prepare($query)->execute(array(':id' => $this->key_id));
                 return true;
             } catch (Exception $ex) {
-                return $e->getMessage();
+                $this->error .= 'deleteKey::'.$ex->getMessage();
+                return false;
             }
         }
     }    
