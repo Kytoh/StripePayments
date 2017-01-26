@@ -22,6 +22,9 @@
      * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
      * THE SOFTWARE.
      */
+    $key = new Keys($dbo->db);
+    // Inizialise current Keys
+    $key->getKeys();
 ?>
 
 <script>
@@ -128,8 +131,7 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $query = 'SELECT * FROM '.DB_DATABASE.'.key_data k';
-                                    Foreach ($dbp->query($query) as $row) {
+                                    Foreach ($key->keys as $row) {
                                         ?>
                                         <tr class="<?php
                                         echo (($row['status']) ? 'key_enabled' : 'key_disabled')
@@ -147,7 +149,7 @@
                                             <td><i data-id="<?php echo $row['id']; ?>" class="deleteKey glyphicon glyphicon-trash"></i>&nbsp;<i data-id="<?php echo $row['id']; ?>" data-status="<?php echo $row['status'] ?>" class="changeStatus glyphicon glyphicon-off"></i>
                                             </td>
                                         </tr>
-    <?php } ?>
+                                    <?php } ?>
                             </tbody>
                         </table>
                     </div>

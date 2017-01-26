@@ -29,7 +29,7 @@
     include "../../config/ky-config.php";
 
 //filters to stop execution
-    (isset($_POST['action']) && ($AuthClass->checkSession($cookies['Auth'])) or $_POST['action']
+    (isset($_POST['action']) && ($dbo->AuthClass->checkSession($cookies['Auth'])) or $_POST['action']
         == 'login') or die('Nyah');
 
     if (@include 'ex/'.$_POST['action'].'.php') {

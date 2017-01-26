@@ -27,14 +27,14 @@
         isset($_POST['key_status'])
     ) {
         if ($_POST['key_status'] == 1) {
-            if ($result = Keys::setEnabledKeys($dbp, $_POST['key_id'], 0) === true
+            if ($result = Keys::setEnabledKeys($_POST['key_id'], 0) === true
             ) {
                 $text_result = array("error" => false);
             } else {
                 $text_result = array("error" => true, "message" => "No se ha podido crear la clave & ".$result);
             }
         } else {
-            if ($result = Keys::setEnabledKeys($dbp, $_POST['key_id'], 1) === true
+            if ($result = Keys::setEnabledKeys($_POST['key_id'], 1) === true
             ) {
                 $text_result = array("error" => false);
             } else {
