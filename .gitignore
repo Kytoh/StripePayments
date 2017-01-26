@@ -6,3 +6,5 @@ web/assets/
 /composer.lock
 nbproject/
 .idea/
+vendor
+/vendor/
