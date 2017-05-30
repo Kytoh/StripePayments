@@ -8,3 +8,8 @@ nbproject/
 .idea/
 vendor
 /vendor/
+\.settings/
+
+\.buildpath
+
+\.project
