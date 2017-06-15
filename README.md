@@ -12,9 +12,6 @@ Features
 * Admin panel with login
 * Registering is not allowed. Administrators must be declared manually.
 
-* Admin panel with login
-* Registry is not allowed. Administrators must be declared manually.
-
 ToDo
 ===============
 This will be in Project System and Issue page in GitHub project page.
