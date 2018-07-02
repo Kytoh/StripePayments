@@ -67,6 +67,14 @@ $(document).ready(function() {
                     },
                     digits: {
                         message: 'The quantity can contain digits only'
+                    },
+                    callback: {
+                        callback: function (value){
+                            value = parseInt(value, 10);
+                            console.log(value);
+                            $('.valor_cobro').html(value);
+                            return true;
+                        }
                     }
                 }
             },
@@ -139,7 +147,7 @@ $(document).ready(function() {
                     callback: {
                         message: 'Expired',
                         callback: function(value, validator) {
-                            value = parseInt(value, 10);
+                            value = parseInt(value, 10)
                             var year         = validator.getFieldElements('expYear').val(),
                                 currentMonth = new Date().getMonth() + 1,
                                 currentYear  = new Date().getFullYear();
@@ -414,7 +422,8 @@ if ($_POST) {
                   <h3 class="panel-title">Noticia Importante</h3>
               </div>
               <div class="panel-body">
-                  <p>Seg&uacute;n has indicado, se te cobrará <span class="valor_cobro"></span>€ en tu cuenta bancaria</p>
+                  <p>Seg&uacute;n has indicado, se te cobrará <span class="valor_cobro"></span> €
+                      en tu cuenta bancaria</p>
                   <p>En tu cuenta aparecerá de la siguiente forma:
                       KCSystem </p>
               </div>
