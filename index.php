@@ -346,7 +346,7 @@
             <legend>Datos de la tarjeta de Pago</legend>
             <!-- Card Holder Name -->
             <div class="form-group">
-                <label class="col-sm-4 control-label"  for="textinput">Quantity</label>
+                <label class="col-sm-4 control-label"  for="textinput">Cantidad</label>
                 <div class="col-sm-6">
                     <input type="text" name="quantity"
                            maxlength="7" placeholder="Cantidad"
@@ -427,24 +427,30 @@
                     </div>
                     <div class="panel-body">
                         <p>Seg&uacute;n has indicado, se te cobrará <span class="valor_cobro"></span> €
-                            en tu cuenta bancaria</p>
-                        <p>Los datos recogidos en este formulario se enviarán de forma segura a la
-                            pasarela de pago Stripe que gestionará el pago. <strong>La información
+                            en tu cuenta bancaria
+                        <br/>Los datos recogidos en este formulario se enviarán de forma segura a la
+                            pasarela de pago Stripe que gestionará el pago. <br/><strong>La
+                                información
                                 bancaria recogida no será almacenada por KCSystem.</strong>
-                        </p>
-                        <p>En tu cuenta aparecerá de la siguiente forma:
+                        <br/>En tu cuenta aparecerá de la siguiente forma:
                             KCS Online Service </p>
                     </div>
                 </div>
 
                 <!-- Submit -->
                 <div class="control-group">
-                    <div class="controls">
+                    <div class="controls ">
                         <center>
-                            <button class="btn btn-success" type="submit">Pagar Ahora</button>
+                            <a class="stripe-connect" onclick="jsfunction()"
+                               href="#"><span>Pagar con Stripe</span></a>
                         </center>
                     </div>
                 </div>
             </div>
         </div>
 </form>
+<script>
+    function jsfunction(){
+        $("#payment-form").submit();
+    }
+</script>
