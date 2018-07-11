@@ -285,11 +285,10 @@
         }
     }
     ?>
-    <div class="alert alert-danger" id="a_x200" style="display: none;"> <strong>Error!</strong> <span class="payment-errors"></span> </div>
-    <span class="payment-success">
-      <?php echo $message ?>
-  </span>
     <div class="container">
+        <span class="payment-status">
+            <?php echo $message ?>
+        </span>
         <fieldset class="m6 s12">
             <!-- Form Name -->
             <legend>Datos de Pago</legend>
