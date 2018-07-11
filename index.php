@@ -433,7 +433,7 @@
                                 bancaria recogida no será almacenada por KCSystem.</strong>
                         </p>
                         <p>En tu cuenta aparecerá de la siguiente forma:
-                            KCSystem </p>
+                            KCS Online Service </p>
                     </div>
                 </div>
 
